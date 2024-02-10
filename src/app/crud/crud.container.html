@@ -1,0 +1,4 @@
+<app-crud-loader *ngIf="crudLoaderService.isLoading$ | async; else notLoading"></app-crud-loader>
+<ng-template #notLoading>
+    <app-crud-ui [teams]="teams" (addTeam)="onAddTeam()" (editTeam)="onEditTeam($event)" (deleteTeam)="onDeleteTeam($event)"></app-crud-ui>
+</ng-template>
