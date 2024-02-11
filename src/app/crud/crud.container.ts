@@ -1,7 +1,11 @@
 import { Component } from '@angular/core';
 import { CrudLoaderService, CrudService } from './commons/services';
 import { MatDialog } from '@angular/material/dialog';
-import { AddModalComponent } from './commons/modals';
+import {
+  AddModalComponent,
+  SuccessModalComponent,
+  WarningModalComponent
+} from './commons/modals';
 import { IDataResponse, ITeam } from './commons/interfaces';
 
 @Component({
@@ -9,33 +13,44 @@ import { IDataResponse, ITeam } from './commons/interfaces';
   templateUrl: './crud.container.html'
 })
 export class CrudContainer {
-
   public teams: Array<ITeam>;
 
-  constructor(public crudLoaderService: CrudLoaderService, public crudService: CrudService, public dialog: MatDialog) {
+  constructor(
+    public crudLoaderService: CrudLoaderService,
+    public crudService: CrudService,
+    public dialog: MatDialog
+  ) {
     this.teams = [];
     this.getAllTeams();
   }
 
-    getAllTeams(): void {
-      this.crudService.getAllTeams().subscribe((res: IDataResponse) => {
-        this.teams = res.data;
-        this.crudService.setAllTeams(this.teams);
-      });
-    }
+  getAllTeams(): void {
+    this.crudService.getAllTeams().subscribe((res: IDataResponse) => {
+      this.teams = res.data;
+      this.crudService.setAllTeams(this.teams);
+    });
+  }
 
-    onAddTeam() {
-      const dialogRef = this.dialog.open(AddModalComponent, {
-        hasBackdrop: true,
-      });
-  
-      dialogRef.afterClosed().subscribe((data: ITeam) => {
+  onAddTeam() {
+    const dialogRef = this.dialog.open(AddModalComponent, {
+      hasBackdrop: true
+    });
+
+    dialogRef.afterClosed().subscribe((data: ITeam) => {
+      this.crudLoaderService.loader(true);
+      setTimeout(() => {
         const lastTeamId = this.teams[this.teams.length - 1].id;
         data.id = lastTeamId + 1;
         this.teams.push(data);
-        this.crudService.setAllTeams(this.teams);
-      });
-      
+        this.crudLoaderService.loader();
+        const dialogRefSuccess = this.dialog.open(SuccessModalComponent, {
+          data: true
+        });
+        dialogRefSuccess
+          .afterClosed()
+          .subscribe(() => this.crudService.setAllTeams(this.teams));
+      }, 5000);
+    });
   }
 
   onEditTeam(team: ITeam) {
@@ -45,23 +60,49 @@ export class CrudContainer {
     });
 
     dialogRef.afterClosed().subscribe((data: ITeam) => {
-      this.teams.map((t: ITeam) => {
-        if (t.id === data.id) {
-          t.full_name = data.full_name;
-          t.name = data.name;
-          t.abbreviation = data.abbreviation;
-          t.city = data.city;
-          t.conference = data.conference;
-          t.division = data.division;
-        }
-      });
-      this.crudService.setAllTeams(this.teams);
+      this.crudLoaderService.loader(true);
+      setTimeout(() => {
+        this.teams.map((t: ITeam) => {
+          if (t.id === data.id) {
+            t.full_name = data.full_name;
+            t.name = data.name;
+            t.abbreviation = data.abbreviation;
+            t.city = data.city;
+            t.conference = data.conference;
+            t.division = data.division;
+          }
+        });
+        this.crudLoaderService.loader();
+        const dialogRefSuccess = this.dialog.open(SuccessModalComponent, {
+          data: true
+        });
+        dialogRefSuccess
+          .afterClosed()
+          .subscribe(() => this.crudService.setAllTeams(this.teams));
+      }, 5000);
     });
-    
-}
+  }
 
-    onDeleteTeam(event: number): void {
-      this.teams = this.teams.filter((t: ITeam) => t.id !== event);
-      this.crudService.setAllTeams(this.teams);
-    }
+  onDeleteTeam(event: ITeam): void {
+    const dialogRef = this.dialog.open(WarningModalComponent, {
+      hasBackdrop: true,
+      data: event
+    });
+
+    dialogRef.afterClosed().subscribe((status: boolean) => {
+      if (status) {
+        this.crudLoaderService.loader(true);
+        setTimeout(() => {
+          this.teams = this.teams.filter((t: ITeam) => t.id !== event.id);
+          this.crudLoaderService.loader();
+          const dialogRefSuccess = this.dialog.open(SuccessModalComponent, {
+            data: false
+          });
+          dialogRefSuccess
+            .afterClosed()
+            .subscribe(() => this.crudService.setAllTeams(this.teams));
+        }, 5000);
+      }
+    });
+  }
 }

@@ -8,14 +8,11 @@ import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatButtonModule } from '@angular/material/button';
 import { CrudLoaderComponent } from './commons/components';
 
-
 @NgModule({
-  declarations: [
-    CrudContainer,
-    CrudComponent
-  ],
+  declarations: [CrudContainer, CrudComponent],
   imports: [
     CommonModule,
     CrudRoutingModule,
@@ -23,7 +20,8 @@ import { CrudLoaderComponent } from './commons/components';
     MatPaginatorModule,
     MatDialogModule,
     MatCheckboxModule,
+    MatButtonModule,
     CrudLoaderComponent
   ]
 })
-export class CrudModule { }
+export class CrudModule {}

@@ -8,9 +8,8 @@ describe('CrudLoaderComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ CrudLoaderComponent ]
-    })
-    .compileComponents();
+      imports: [CrudLoaderComponent]
+    }).compileComponents();
 
     fixture = TestBed.createComponent(CrudLoaderComponent);
     component = fixture.componentInstance;

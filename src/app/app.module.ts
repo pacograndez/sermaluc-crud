@@ -5,12 +5,13 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { CrudHeadersInterceptor, CrudLoaderInterceptor } from './crud/commons/interceptors';
+import {
+  CrudHeadersInterceptor,
+  CrudLoaderInterceptor
+} from './crud/commons/interceptors';
 
 @NgModule({
-  declarations: [
-    AppComponent
-  ],
+  declarations: [AppComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -31,4 +32,4 @@ import { CrudHeadersInterceptor, CrudLoaderInterceptor } from './crud/commons/in
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}

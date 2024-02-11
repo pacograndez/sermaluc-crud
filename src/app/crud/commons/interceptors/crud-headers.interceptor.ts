@@ -10,17 +10,18 @@ import { environment } from 'src/environments/environment';
 
 @Injectable()
 export class CrudHeadersInterceptor implements HttpInterceptor {
-
-  constructor() {}
-
-  intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
+  intercept(
+    request: HttpRequest<unknown>,
+    next: HttpHandler
+  ): Observable<HttpEvent<unknown>> {
     const rapidapiKey = environment.rapidapiKey;
     const rapidapiHost = environment.rapidapiHost;
 
     const updateRequest = request.clone({
-      headers: request.headers.append('X-Rapidapi-Key', rapidapiKey)
-      .append('X-Rapidapi-Host', rapidapiHost)
-    })
+      headers: request.headers
+        .append('X-Rapidapi-Key', rapidapiKey)
+        .append('X-Rapidapi-Host', rapidapiHost)
+    });
     return next.handle(updateRequest);
   }
 }

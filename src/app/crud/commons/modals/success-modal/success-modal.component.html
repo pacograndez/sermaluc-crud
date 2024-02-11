@@ -1,0 +1,30 @@
+<div mat-dialog-content>
+  <div class="modal-icon-content">
+    <div class="modal-icon-box">
+      <i class="bi bi-check-circle"></i>
+    </div>
+  </div>
+  <div class="container">
+    <div class="row justify-content-center text-center">
+      <div class="col-12 col-md-8">
+        <h2>
+          {{ data ? 'Se guardó correctamente!' : 'Se eliminó correctamente!' }}
+        </h2>
+      </div>
+    </div>
+    <div class="row justify-content-center">
+      <div class="col-12 col-md-6">
+        <div class="d-flex gap-2 justify-content-center">
+          <button
+            mat-raised-button
+            color="primary"
+            type="button"
+            (click)="onConfirm()"
+          >
+            Aceptar
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
