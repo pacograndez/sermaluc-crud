@@ -9,15 +9,18 @@ import { ITeam } from '../../interfaces';
 @Component({
   selector: 'app-add-modal',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, MatInputModule ],
+  imports: [CommonModule, ReactiveFormsModule, MatInputModule],
   templateUrl: './add-modal.component.html',
   styleUrls: ['./add-modal.component.scss'],
-  providers: [ AddModalPresenter ]
+  providers: [AddModalPresenter]
 })
 export class AddModalComponent implements OnInit {
+  constructor(
+    public addModalPresenter: AddModalPresenter,
+    public dialogRef: MatDialogRef<AddModalComponent>,
+    @Inject(MAT_DIALOG_DATA) public team: ITeam
+  ) {}
 
-  constructor(public addModalPresenter: AddModalPresenter, public dialogRef: MatDialogRef<AddModalComponent>, @Inject(MAT_DIALOG_DATA) public team: ITeam) { }
-  
   ngOnInit(): void {
     if (this.team) {
       this.addModalPresenter.setTitle(false);

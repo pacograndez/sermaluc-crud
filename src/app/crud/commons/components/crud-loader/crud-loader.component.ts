@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {MatProgressSpinnerModule, ProgressSpinnerMode} from '@angular/material/progress-spinner';
+import {
+  MatProgressSpinnerModule,
+  ProgressSpinnerMode
+} from '@angular/material/progress-spinner';
 
 @Component({
   selector: 'app-crud-loader',
@@ -10,6 +13,5 @@ import {MatProgressSpinnerModule, ProgressSpinnerMode} from '@angular/material/p
   styleUrls: ['./crud-loader.component.scss']
 })
 export class CrudLoaderComponent {
-
   mode: ProgressSpinnerMode = 'indeterminate';
 }

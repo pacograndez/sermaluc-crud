@@ -5,10 +5,9 @@ import { BehaviorSubject } from 'rxjs';
   providedIn: 'root'
 })
 export class CrudLoaderService {
-
   public isLoading$: BehaviorSubject<boolean>;
 
-  constructor() { 
+  constructor() {
     this.isLoading$ = new BehaviorSubject<boolean>(false);
   }
 

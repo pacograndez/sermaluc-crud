@@ -4,9 +4,6 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class CrudStorageService {
-
-  constructor() { }
-
   setData(key: string, value: string) {
     localStorage.setItem(key, value);
   }

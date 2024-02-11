@@ -6,8 +6,10 @@ const routes: Routes = [
     path: 'crud',
     loadChildren: () => import('./crud/crud.module').then((m) => m.CrudModule)
   },
-  { 
-    path: '', redirectTo: 'crud', pathMatch: 'full' 
+  {
+    path: '',
+    redirectTo: 'crud',
+    pathMatch: 'full'
   }
 ];
 
@@ -15,4 +17,4 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}
