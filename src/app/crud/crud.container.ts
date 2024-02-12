@@ -37,19 +37,21 @@ export class CrudContainer {
     });
 
     dialogRef.afterClosed().subscribe((data: ITeam) => {
-      this.crudLoaderService.loader(true);
-      setTimeout(() => {
-        const lastTeamId = this.teams[this.teams.length - 1].id;
-        data.id = lastTeamId + 1;
-        this.teams.push(data);
-        this.crudLoaderService.loader();
-        const dialogRefSuccess = this.dialog.open(SuccessModalComponent, {
-          data: true
-        });
-        dialogRefSuccess
-          .afterClosed()
-          .subscribe(() => this.crudService.setAllTeams(this.teams));
-      }, 5000);
+      if (data) {
+        this.crudLoaderService.loader(true);
+        setTimeout(() => {
+          const lastTeamId = this.teams[this.teams.length - 1].id;
+          data.id = lastTeamId + 1;
+          this.teams.push(data);
+          this.crudLoaderService.loader();
+          const dialogRefSuccess = this.dialog.open(SuccessModalComponent, {
+            data: true
+          });
+          dialogRefSuccess
+            .afterClosed()
+            .subscribe(() => this.crudService.setAllTeams(this.teams));
+        }, 5000);
+      }
     });
   }
 
@@ -60,26 +62,28 @@ export class CrudContainer {
     });
 
     dialogRef.afterClosed().subscribe((data: ITeam) => {
-      this.crudLoaderService.loader(true);
-      setTimeout(() => {
-        this.teams.map((t: ITeam) => {
-          if (t.id === data.id) {
-            t.full_name = data.full_name;
-            t.name = data.name;
-            t.abbreviation = data.abbreviation;
-            t.city = data.city;
-            t.conference = data.conference;
-            t.division = data.division;
-          }
-        });
-        this.crudLoaderService.loader();
-        const dialogRefSuccess = this.dialog.open(SuccessModalComponent, {
-          data: true
-        });
-        dialogRefSuccess
-          .afterClosed()
-          .subscribe(() => this.crudService.setAllTeams(this.teams));
-      }, 5000);
+      if (data) {
+        this.crudLoaderService.loader(true);
+        setTimeout(() => {
+          this.teams.map((t: ITeam) => {
+            if (t.id === data.id) {
+              t.full_name = data.full_name;
+              t.name = data.name;
+              t.abbreviation = data.abbreviation;
+              t.city = data.city;
+              t.conference = data.conference;
+              t.division = data.division;
+            }
+          });
+          this.crudLoaderService.loader();
+          const dialogRefSuccess = this.dialog.open(SuccessModalComponent, {
+            data: true
+          });
+          dialogRefSuccess
+            .afterClosed()
+            .subscribe(() => this.crudService.setAllTeams(this.teams));
+        }, 5000);
+      }
     });
   }
 
