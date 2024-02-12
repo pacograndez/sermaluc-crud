@@ -7,6 +7,7 @@ import {
 } from '@angular/common/http';
 import { Observable, delay, finalize } from 'rxjs';
 import { CrudLoaderService } from '../services';
+import { environment } from 'src/environments/environment';
 
 @Injectable()
 export class CrudLoaderInterceptor implements HttpInterceptor {
@@ -27,7 +28,7 @@ export class CrudLoaderInterceptor implements HttpInterceptor {
     this.activeHttpRequest++;
 
     return next.handle(request).pipe(
-      delay(5000),
+      delay(environment.delay),
       finalize(() => this.hideLoader())
     );
   }
