@@ -5,11 +5,12 @@ import { MatInputModule } from '@angular/material/input';
 import { AddModalPresenter } from './add-modal.presenter';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { ITeam } from '../../interfaces';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-add-modal',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, MatInputModule],
+  imports: [CommonModule, ReactiveFormsModule, MatInputModule, MatButtonModule],
   templateUrl: './add-modal.component.html',
   styleUrls: ['./add-modal.component.scss'],
   providers: [AddModalPresenter]
@@ -32,5 +33,9 @@ export class AddModalComponent implements OnInit {
 
   onSubmit(): void {
     this.dialogRef.close(this.addModalPresenter.form.value);
+  }
+
+  onClose(): void {
+    this.dialogRef.close();
   }
 }

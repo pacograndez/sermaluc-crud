@@ -1,5 +1,10 @@
 import { Injectable } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators
+} from '@angular/forms';
 import { ITeam } from '../../interfaces';
 
 @Injectable()
@@ -23,13 +28,13 @@ export class AddModalPresenter {
   }
 
   initControlsAndValidators(): void {
-    this.id = new FormControl();
-    this.abbreviation = new FormControl();
-    this.city = new FormControl();
-    this.conference = new FormControl();
-    this.division = new FormControl();
-    this.full_name = new FormControl();
-    this.name = new FormControl();
+    this.id = new FormControl(null);
+    this.abbreviation = new FormControl(null, [Validators.required]);
+    this.city = new FormControl(null, [Validators.required]);
+    this.conference = new FormControl(null, [Validators.required]);
+    this.division = new FormControl(null, [Validators.required]);
+    this.full_name = new FormControl(null, [Validators.required]);
+    this.name = new FormControl(null, [Validators.required]);
   }
 
   initForm(): void {
@@ -49,5 +54,15 @@ export class AddModalPresenter {
   }
   public setData(data: ITeam): void {
     this.form.patchValue(data);
+  }
+
+  public checkForErrorsIn(control: FormControl): string {
+    if (control.invalid && (control.dirty || control.touched)) {
+      if (control.hasError('required')) {
+        return 'Este campo es requerido';
+      }
+    }
+
+    return '';
   }
 }
