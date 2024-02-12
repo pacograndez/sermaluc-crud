@@ -1,0 +1,35 @@
+<div mat-dialog-content>
+  <div class="modal-icon-content">
+    <div class="modal-icon-box">
+      <i class="bi bi-exclamation-triangle"></i>
+    </div>
+  </div>
+  <div class="container">
+    <div class="row justify-content-center text-center">
+      <div class="col-12 col-md-8">
+        <h2>
+          Está seguro de querer eliminar el equipo <br />
+          {{ data.full_name }}?
+        </h2>
+        <p>Esta acción no se puede deshacer!</p>
+      </div>
+    </div>
+    <div class="row justify-content-center">
+      <div class="col-12 col-md-6">
+        <div class="d-flex gap-2 justify-content-center">
+          <button mat-raised-button type="button" (click)="onCancel()">
+            Cancel
+          </button>
+          <button
+            mat-raised-button
+            color="warn"
+            type="button"
+            (click)="onConfirm()"
+          >
+            Aceptar
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
