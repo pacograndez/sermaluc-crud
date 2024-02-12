@@ -1,0 +1,7 @@
+<app-crud-loader *ngIf="crudLoaderService.isLoading$ | async"></app-crud-loader>
+<app-crud-ui
+  [teams]="teams"
+  (addTeam)="onAddTeam()"
+  (editTeam)="onEditTeam($event)"
+  (deleteTeam)="onDeleteTeam($event)"
+></app-crud-ui>
