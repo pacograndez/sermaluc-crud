@@ -7,6 +7,7 @@ import {
   WarningModalComponent
 } from './commons/modals';
 import { IDataResponse, ITeam } from './commons/interfaces';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-crud',
@@ -50,7 +51,7 @@ export class CrudContainer {
           dialogRefSuccess
             .afterClosed()
             .subscribe(() => this.crudService.setAllTeams(this.teams));
-        }, 5000);
+        }, environment.delay);
       }
     });
   }
@@ -82,7 +83,7 @@ export class CrudContainer {
           dialogRefSuccess
             .afterClosed()
             .subscribe(() => this.crudService.setAllTeams(this.teams));
-        }, 5000);
+        }, environment.delay);
       }
     });
   }
@@ -105,7 +106,7 @@ export class CrudContainer {
           dialogRefSuccess
             .afterClosed()
             .subscribe(() => this.crudService.setAllTeams(this.teams));
-        }, 5000);
+        }, environment.delay);
       }
     });
   }
